@@ -342,45 +342,17 @@ section{padding:120px 32px;position:relative;max-width:1280px;margin:0 auto}
 .why-card p{color:var(--muted);font-size:14px}
 
 /* ─────────────── GALLERY ─────────────── */
-.gallery{
-display:grid;
-grid-template-columns:repeat(4,minmax(0,1fr));
-gap:18px;
-max-width:1100px;
-margin:0 auto;
-}
-@media(max-width:900px){.gallery{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:560px){.gallery{grid-template-columns:1fr;}}
+.gallery{column-count:3;column-gap:14px}
+@media(max-width:880px){.gallery{column-count:2}}
+@media(max-width:520px){.gallery{column-count:1}}
 .gallery .g{
-padding:10px;
-background:linear-gradient(180deg,#181818,#0e0e0e);
-border:1px solid rgba(217,180,106,.25);
-border-radius:20px;
-box-shadow:0 12px 30px rgba(0,0,0,.35);
-transition:.35s;
+  break-inside:avoid;margin-bottom:14px;border-radius:18px;overflow:hidden;position:relative;
+  border:1px solid var(--border);cursor:pointer;
 }
-.gallery .g:hover{transform:translateY(-6px);}
-.gallery .g img{
-width:100%;
-height:180px;
-object-fit:cover;
-border-radius:14px;
-display:block;
-}
-.gallery .g::after{
-content:"★";
-position:absolute;
-top:18px;
-right:18px;
-width:26px;
-height:26px;
-display:grid;
-place-items:center;
-background:rgba(0,0,0,.55);
-color:#d9b46a;
-border-radius:50%;
-font-size:12px;
-}
+.gallery .g img{width:100%;height:auto;transition:transform .8s var(--ease)}
+.gallery .g:hover img{transform:scale(1.08)}
+.gallery .g::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.5));opacity:0;transition:opacity .3s}
+.gallery .g:hover::after{opacity:1}
 
 /* ─────────────── REVIEWS ─────────────── */
 .reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
@@ -787,7 +759,10 @@ footer p{color:var(--muted);font-size:13px;margin-top:12px}
   <div class="modal">
     <h3>Almost there ✨</h3>
     <p class="s">A few quick details and we'll prepare your order.</p>
-    <div class="field"><label>Special Instructions (Optional)</label><textarea id="cNote" placeholder="Less spicy, no onions, extra plates, etc."></textarea></div><div class="actions">
+    <div class="field"><label>Your Name</label><input id="cName" placeholder="e.g. Rohan Kumar" /></div>
+    <div class="field"><label>Phone Number</label><input id="cPhone" type="tel" placeholder="+91 …" /></div>
+    <div class="field"><label>Special Instructions</label><textarea id="cNote" placeholder="Less spicy, no onions, etc."></textarea></div>
+    <div class="actions">
       <button class="btn ghost" id="custCancel" style="flex:1;justify-content:center">Cancel</button>
       <button class="btn primary" id="custSend" style="flex:1;justify-content:center">Send on WhatsApp</button>
     </div>
@@ -842,15 +817,16 @@ const MENU = [
 ];
 const CATEGORIES = ['Featured','Breakfast','Lunch','Dinner','Mandi','Shawarma','Chinese','South Indian','North Indian','Desserts','Juices'];
 
-const GALLERY=[
-'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=700&q=80',
-'https://images.unsplash.com/photo-1544025162-d76694265947?w=700&q=80',
-'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=700&q=80',
-'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=700&q=80',
-'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=700&q=80',
-'https://images.unsplash.com/photo-1559847844-5315695dadae?w=700&q=80',
-'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=700&q=80',
-'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=700&q=80'
+const GALLERY = [
+  'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800',
+  'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=800',
+  'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800',
+  'https://images.unsplash.com/photo-1574484284002-952d92456975?w=800',
+  'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800',
+  'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800',
+  'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=800',
+  'https://images.unsplash.com/photo-1502301197179-65228ab57f78?w=800',
+  'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800',
 ];
 
 /* ───────── STATE ───────── */
