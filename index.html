@@ -341,18 +341,51 @@ section{padding:120px 32px;position:relative;max-width:1280px;margin:0 auto}
 .why-card h4{font-size:20px;margin-bottom:8px}
 .why-card p{color:var(--muted);font-size:14px}
 
-/* ─────────────── GALLERY ─────────────── */
-.gallery{column-count:3;column-gap:14px}
-@media(max-width:880px){.gallery{column-count:2}}
-@media(max-width:520px){.gallery{column-count:1}}
-.gallery .g{
-  break-inside:avoid;margin-bottom:14px;border-radius:18px;overflow:hidden;position:relative;
-  border:1px solid var(--border);cursor:pointer;
+/* ─────────────── SIGNATURE DISHES GALLERY ─────────────── */
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:22px;
 }
-.gallery .g img{width:100%;height:auto;transition:transform .8s var(--ease)}
-.gallery .g:hover img{transform:scale(1.08)}
-.gallery .g::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.5));opacity:0;transition:opacity .3s}
-.gallery .g:hover::after{opacity:1}
+@media(max-width:980px){
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:560px){
+  .gallery-grid{grid-template-columns:1fr}
+}
+.gallery-card{
+  position:relative;border-radius:22px;overflow:hidden;
+  border:1px solid var(--border);
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+  box-shadow:0 16px 36px -16px rgba(0,0,0,.55);
+  transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
+}
+.gallery-card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(217,180,106,.65);
+  box-shadow:0 30px 64px -16px rgba(0,0,0,.65), 0 0 0 1px rgba(217,180,106,.4), 0 0 32px -4px rgba(217,180,106,.35);
+}
+.gallery-card .frame{
+  aspect-ratio:1/1;
+  overflow:hidden;
+  position:relative;
+}
+.gallery-card .frame img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .6s var(--ease);
+}
+.gallery-card:hover .frame img{transform:scale(1.08)}
+.gallery-card .overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 35%,rgba(7,7,11,.92) 100%);
+  opacity:.8;
+  transition:opacity .4s var(--ease);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:18px;
+}
+.gallery-card:hover .overlay{opacity:1}
+.gallery-card .dish-name{font-family:'Playfair Display',serif;font-size:17px;color:var(--text)}
+.gallery-card .dish-tag{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-top:4px}
 
 /* ─────────────── REVIEWS ─────────────── */
 .reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
@@ -478,7 +511,7 @@ footer p{color:var(--muted);font-size:13px;margin-top:12px}
   transition:border-color .3s,background .3s;
 }
 .modal input:focus,.modal textarea:focus{outline:none;border-color:var(--gold);background:var(--surface-2)}
-.modal textarea{resize:vertical;min-height:80px}
+.modal textarea{resize:vertical;min-height:110px;line-height:1.6}
 .modal .actions{display:flex;gap:10px;margin-top:8px}
 .modal .actions .btn{flex:1;justify-content:center}
 .modal .alert-icon{
@@ -549,7 +582,7 @@ footer p{color:var(--muted);font-size:13px;margin-top:12px}
       <div class="hero-cta">
         <a href="#menu" class="btn primary"><span>Explore Menu</span> →</a>
         <a href="#contact" class="btn ghost">Reserve Table</a>
-        <a href="tel:+917815020977" class="btn ghost">Call Now</a>
+        <a href="#" class="btn ghost tel-link">Call Now</a>
       </div>
       <div class="hero-stats">
         <div class="stat"><div class="v">⭐ 252+</div><div class="l">REVIEWS</div></div>
@@ -647,13 +680,14 @@ footer p{color:var(--muted);font-size:13px;margin-top:12px}
   </div>
 </section>
 
-<!-- GALLERY -->
+<!-- SIGNATURE DISHES GALLERY -->
 <section class="reveal" id="gallery">
   <div class="section-head">
-    <div class="eyebrow">Gallery</div>
-    <h2 class="section-title">Moments from <span class="gold-text">our table</span></h2>
+    <div class="eyebrow">Signature Dishes</div>
+    <h2 class="section-title">✨ Signature <span class="gold-text">Dishes</span></h2>
+    <p class="section-sub">A visual journey through our most loved flavours, freshly prepared every day.</p>
   </div>
-  <div class="gallery" id="gallery"></div>
+  <div class="gallery-grid" id="galleryGrid"></div>
 </section>
 
 <!-- REVIEWS -->
@@ -678,7 +712,7 @@ footer p{color:var(--muted);font-size:13px;margin-top:12px}
   <div class="faq-list">
     <details class="faq glass"><summary>Do you provide takeaway?</summary><p>Yes — every dish on our menu is available for takeaway. Order via WhatsApp using the floating button.</p></details>
     <details class="faq glass"><summary>Do you provide family dining?</summary><p>Absolutely. We are a dedicated family restaurant with spacious, comfortable seating.</p></details>
-    <details class="faq glass"><summary>Can I reserve a table?</summary><p>Yes, call us at +91 78150 20977 to reserve. For walk-ins, just scan, select and sit.</p></details>
+    <details class="faq glass"><summary>Can I reserve a table?</summary><p>Yes, call us to reserve. For walk-ins, just scan, select and sit.</p></details>
     <details class="faq glass"><summary>Can I order using WhatsApp?</summary><p>Yes — choose your table, add items to cart and tap “Send Order on WhatsApp”. We handle the rest.</p></details>
     <details class="faq glass"><summary>Can I select my table?</summary><p>Yes! The Smart Table section lets you choose your seat. Your selection is remembered until you change it.</p></details>
   </div>
@@ -694,13 +728,13 @@ footer p{color:var(--muted);font-size:13px;margin-top:12px}
     <div class="contact-card glass">
       <h4>Dawat Family Restaurant</h4>
       <div class="contact-row"><div class="k">Address</div><div class="v">Siripurapu Devasahayam Street, Mogalrajapuram, Shanti Nagar, Labbipet, Vijayawada, AP 520010</div></div>
-      <div class="contact-row"><div class="k">Phone</div><div class="v"><a href="tel:+917815020977">+91 78150 20977</a></div></div>
+      <div class="contact-row"><div class="k">Phone</div><div class="v"><a href="#" class="tel-link">+91 78150 20977</a></div></div>
       <div class="contact-row"><div class="k">Hours</div><div class="v">10:00 AM – 12:00 AM · Every day</div></div>
       <div class="contact-row"><div class="k">Avg. Price</div><div class="v">₹200 – ₹400 for two</div></div>
       <div class="contact-row"><div class="k">Services</div><div class="v">Family Dining · Dine In · Drive Through · Takeaway · WhatsApp Ordering</div></div>
       <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap">
-        <a class="btn primary" href="https://wa.me/917815020977" target="_blank">WhatsApp</a>
-        <a class="btn ghost" href="tel:+917815020977">Call</a>
+        <a class="btn primary wa-link" href="#" target="_blank">WhatsApp</a>
+        <a class="btn ghost tel-link" href="#">Call</a>
         <a class="btn ghost" href="https://maps.google.com/?q=Dawat+Family+Restaurant+Vijayawada" target="_blank">Directions</a>
       </div>
     </div>
@@ -717,8 +751,8 @@ footer p{color:var(--muted);font-size:13px;margin-top:12px}
 
 <!-- FAB STACK -->
 <div class="fab-stack">
-  <a class="fab wa" href="https://wa.me/917815020977" title="WhatsApp" target="_blank">💬</a>
-  <a class="fab call" href="tel:+917815020977" title="Call">📞</a>
+  <a class="fab wa wa-link" href="#" title="WhatsApp" target="_blank">💬</a>
+  <a class="fab call tel-link" href="#" title="Call">📞</a>
   <button class="fab top" id="toTop" title="Scroll to top">↑</button>
 </div>
 
@@ -749,22 +783,26 @@ footer p{color:var(--muted);font-size:13px;margin-top:12px}
 <div class="modal-back" id="alertBack">
   <div class="modal alert">
     <div class="alert-icon">⚠️</div>
-    <h3>Please Select Your Table</h3>
-    <p class="s">Choose a table from the Smart Table section before placing your order.</p>
-    <div class="actions"><button class="btn primary" id="alertGo" style="flex:1;justify-content:center">Choose Table</button></div>
+    <h3>Select Your Table</h3>
+    <p class="s">Please select the table where you are sitting before placing your order.</p>
+    <div class="actions"><button class="btn primary" id="alertGo" style="flex:1;justify-content:center">Go To Smart Tables</button></div>
   </div>
 </div>
 
 <div class="modal-back" id="custBack">
   <div class="modal">
-    <h3>Almost there ✨</h3>
-    <p class="s">A few quick details and we'll prepare your order.</p>
-    <div class="field"><label>Your Name</label><input id="cName" placeholder="e.g. Rohan Kumar" /></div>
-    <div class="field"><label>Phone Number</label><input id="cPhone" type="tel" placeholder="+91 …" /></div>
-    <div class="field"><label>Special Instructions</label><textarea id="cNote" placeholder="Less spicy, no onions, etc."></textarea></div>
+    <h3>Final Step ✨</h3>
+    <p class="s">Add any special instructions for your order — totally optional.</p>
+    <div class="field">
+      <label>Special Instructions (Optional)</label>
+      <textarea id="cNote" placeholder="Example:
+Less spicy
+No onions
+Extra mayonnaise"></textarea>
+    </div>
     <div class="actions">
-      <button class="btn ghost" id="custCancel" style="flex:1;justify-content:center">Cancel</button>
-      <button class="btn primary" id="custSend" style="flex:1;justify-content:center">Send on WhatsApp</button>
+      <button class="btn ghost" id="custSkip" style="flex:1;justify-content:center">Skip & Send</button>
+      <button class="btn primary" id="custSend" style="flex:1;justify-content:center">Send Order</button>
     </div>
   </div>
 </div>
@@ -773,6 +811,9 @@ footer p{color:var(--muted);font-size:13px;margin-top:12px}
 <div class="toast" id="toast"><div class="ic">✓</div><span id="toastMsg">Added to cart</span></div>
 
 <script>
+/* ───────── GLOBAL CONFIG ───────── */
+const WHATSAPP_NUMBER = "917815020977";
+
 /* ───────── DATA ───────── */
 const MENU = [
   // BREAKFAST
@@ -817,21 +858,21 @@ const MENU = [
 ];
 const CATEGORIES = ['Featured','Breakfast','Lunch','Dinner','Mandi','Shawarma','Chinese','South Indian','North Indian','Desserts','Juices'];
 
+/* Signature Dishes gallery — local assets only */
 const GALLERY = [
-  'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800',
-  'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=800',
-  'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800',
-  'https://images.unsplash.com/photo-1574484284002-952d92456975?w=800',
-  'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800',
-  'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800',
-  'https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=800',
-  'https://images.unsplash.com/photo-1502301197179-65228ab57f78?w=800',
-  'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800',
+  {img:'assets/dawat1.jpg', name:'Chicken Biryani',   tag:"Chef's Special"},
+  {img:'assets/dawat2.jpg', name:'Pot Shawarma',      tag:'Best Seller'},
+  {img:'assets/dawat3.jpg', name:'Unlimited Mandi',   tag:'Customer Favourite'},
+  {img:'assets/dawat4.jpg', name:'Butter Naan',       tag:'Fresh From Tandoor'},
+  {img:'assets/dawat5.jpg', name:'Cold Coffee',       tag:'Refreshing Choice'},
+  {img:'assets/dawat6.jpg', name:'Chocolate Dessert', tag:'Sweet Delight'},
+  {img:'assets/dawat7.jpg', name:'Fresh Juice',       tag:'Natural & Fresh'},
+  {img:'assets/dawat8.jpg', name:'Crispy Chicken',    tag:'Signature Recipe'},
 ];
 
 /* ───────── STATE ───────── */
 const LS = {
-  table:'dawat_table', cart:'dawat_cart', cust:'dawat_customer'
+  table:'dawat_table', cart:'dawat_cart'
 };
 let selectedTable = localStorage.getItem(LS.table) || null;
 let cart = JSON.parse(localStorage.getItem(LS.cart) || '[]');
@@ -942,6 +983,18 @@ function renderMenu(){
 }
 renderMenu();
 
+/* ───────── SIGNATURE DISHES GALLERY ───────── */
+document.getElementById('galleryGrid').innerHTML = GALLERY.map(g=>`
+  <div class="gallery-card">
+    <div class="frame">
+      <img src="${g.img}" alt="${g.name}" loading="lazy" decoding="async" />
+      <div class="overlay">
+        <div class="dish-name">${g.name}</div>
+        <div class="dish-tag">${g.tag}</div>
+      </div>
+    </div>
+  </div>`).join('');
+
 /* ───────── CART ───────── */
 function saveCart(){localStorage.setItem(LS.cart,JSON.stringify(cart));renderCart();}
 function addToCart(id){
@@ -993,7 +1046,7 @@ document.getElementById('closeDrawer').onclick=closeDrawer;
 drawerBack.onclick=closeDrawer;
 document.getElementById('clearCart').onclick=()=>{cart=[];saveCart();toast('Cart cleared');};
 
-/* ───────── CHECKOUT ───────── */
+/* ───────── CHECKOUT FLOW (no name / no phone) ───────── */
 const alertBack=document.getElementById('alertBack');
 document.getElementById('alertGo').onclick=()=>{
   alertBack.classList.remove('open');
@@ -1004,51 +1057,69 @@ alertBack.onclick=e=>{if(e.target===alertBack)alertBack.classList.remove('open')
 document.getElementById('checkout').onclick=()=>{
   if(!cart.length){toast('Cart is empty');return}
   if(!selectedTable){closeDrawer();alertBack.classList.add('open');return}
-  openCust();
+  openInstructions();
 };
 
 const custBack=document.getElementById('custBack');
-function openCust(){
-  const saved=JSON.parse(localStorage.getItem(LS.cust)||'{}');
-  document.getElementById('cName').value=saved.name||'';
-  document.getElementById('cPhone').value=saved.phone||'';
+function openInstructions(){
   document.getElementById('cNote').value='';
   custBack.classList.add('open');
 }
-document.getElementById('custCancel').onclick=()=>custBack.classList.remove('open');
 custBack.onclick=e=>{if(e.target===custBack)custBack.classList.remove('open')};
-document.getElementById('custSend').onclick=()=>{
-  const name=document.getElementById('cName').value.trim();
-  const phone=document.getElementById('cPhone').value.trim();
-  const note=document.getElementById('cNote').value.trim();
-  if(!name||!phone){toast('Please enter name & phone');return}
-  localStorage.setItem(LS.cust,JSON.stringify({name,phone}));
-  const total=cart.reduce((s,c)=>s+c.price*c.q,0);
-  const lines=cart.map(c=>`${c.name} ×${c.q}  —  ₹${c.price*c.q}`).join('\n');
-  const msg=
-`🍽️ *DAWAT FAMILY RESTAURANT*
-━━━━━━━━━━━━━━━━━━━━
-*Table:* ${selectedTable}
-━━━━━━━━━━━━━━━━━━━━
+
+document.getElementById('custSend').onclick=()=>sendOrder(false);
+document.getElementById('custSkip').onclick=()=>sendOrder(true);
+
+function sendOrder(skip){
+  const note = skip ? '' : document.getElementById('cNote').value.trim();
+  const total = cart.reduce((s,c)=>s+c.price*c.q,0);
+  const lines = cart.map(c=>`${c.name} ×${c.q}`).join('\n');
+
+  let msg =
+`🍽️ DAWAT FAMILY RESTAURANT
+
+━━━━━━━━━━━━━━━━
+
+🪑 Table : ${selectedTable}
+
+━━━━━━━━━━━━━━━━
+
 ${lines}
-━━━━━━━━━━━━━━━━━━━━
-*Total: ₹${total}*
-━━━━━━━━━━━━━━━━━━━━
-*Customer*
-Name: ${name}
-Phone: ${phone}
-Notes: ${note||'—'}
-━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━
+
+💰 Total : ₹${total}`;
+
+  if(note){
+    msg += `
+
+━━━━━━━━━━━━━━━━
+
+📝 Special Instructions
+
+${note}`;
+  }
+
+  msg += `
+
+━━━━━━━━━━━━━━━━
+
 Thank You ❤️`;
-  const url=`https://wa.me/917815020977?text=${encodeURIComponent(msg)}`;
-  window.open(url,'_blank');
+
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+
   custBack.classList.remove('open');
   closeDrawer();
-  toast('Opening WhatsApp…');
-};
+  window.location.href = url;
+}
 
-/* ───────── GALLERY ───────── */
-document.getElementById('gallery').innerHTML = GALLERY.map(src=>`<div class="g"><img loading="lazy" src="${src}" alt="Dawat Restaurant"/></div>`).join('');
+/* ───────── WHATSAPP / CALL LINKS — single source of truth ───────── */
+document.querySelectorAll('.wa-link').forEach(a=>{
+  a.href = `https://wa.me/${WHATSAPP_NUMBER}`;
+});
+document.querySelectorAll('.tel-link').forEach(a=>{
+  a.href = `tel:+${WHATSAPP_NUMBER}`;
+});
 
 /* ───────── TOAST ───────── */
 let toastT;
